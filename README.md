@@ -1,4 +1,4 @@
-# Speech Emotion Classification with RAVDESS dataser
+# Speech Emotion Classification with RAVDESS dataset
 To use this model, clone this repository and run 
 `
 pip install -r requirements.txt
