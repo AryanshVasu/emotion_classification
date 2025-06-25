@@ -1,13 +1,12 @@
 import numpy as np
 import torch
 from torch import nn
-import torchaudio 
 import os
 import matplotlib.pyplot as plt
 import librosa
 import csv
 
-from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay, accuracy_score
+from sklearn.metrics import accuracy_score
 
 # function to get features from URL
 def transform_pipeline(url):
@@ -20,7 +19,7 @@ def transform_pipeline(url):
         sig = sig[:maxSamples]
     elif (n < maxSamples):
         padding = np.zeros(maxSamples-n)
-        sig = np.concat((sig,padding))
+        sig = np.concatenate((sig,padding))
     
     # spectral 
     mfcc = librosa.feature.mfcc(y=sig, sr=sr, n_fft=2048, hop_length=512, n_mfcc=32)
@@ -89,7 +88,7 @@ class CNN2(nn.Module):
         return x 
         
 evalModel = CNN2()
-evalModel.load_state_dict((torch.load('best_model.pt')))
+evalModel.load_state_dict((torch.load('model.pt')))
 
 testLoader = torch.utils.data.DataLoader(evalDS,batch_size=len(evalDS))
 with torch.no_grad():
@@ -101,7 +100,7 @@ with torch.no_grad():
     _,pred = torch.max(outputs,1)
     # report = classification_report(labels,pred)
 
-print (f'> Evaluation completed with accuracy = {accuracy_score(labels,pred)*100 :.2f}')
+print (f'> Evaluation completed with accuracy = {accuracy_score(labels,pred)*100 :.2f} \nOutput stored in out.csv.\n')
 
 out = {}
 pred = pred.numpy()
@@ -118,5 +117,3 @@ with open("out.csv", "w", newline="") as f:
     w.writerow(out)
 
 
-
-print ('')
