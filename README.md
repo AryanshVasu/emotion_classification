@@ -10,13 +10,13 @@ To run the notebook, download Audio_Speech_Actors_01-24.zip and Audio_Song_Actor
 ```
 emotion_classification
 ├──data
-| |  song_actors
+| ├──song_actors
 | └──speech_actors
-|  eval_data 
-|  audioClassification.ipynb
-|  eval.py
-|  model.pt
-|  model_sad_removed.pt
+├──eval_data 
+├──audioClassification.ipynb
+├──eval.py
+├──model.pt
+├──model_sad_removed.pt
 └──requirments.txt
 ```
 
